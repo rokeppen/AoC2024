@@ -33,13 +33,12 @@ class Day5 {
     fun solvePartTwo(file: String): Int {
         val (rules, orders) = getInput(file)
         return orders.filter { o -> rules.any { !validate(o, it) } }
-            .map { list ->
+            .onEach { list ->
                 var invalidRules = rules.filter { !validate(list, it) }
                 while (invalidRules.isNotEmpty()) {
                     swap(list, invalidRules.first())
                     invalidRules = rules.filter { !validate(list, it) }
                 }
-                list
             }.sumOf { it[it.size / 2] }
     }
 }
